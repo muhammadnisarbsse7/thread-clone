@@ -1,7 +1,9 @@
 import { Avatar, Button, Stack, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const ProfileBar = () => {
+  const { darkMode } = useSelector((state) => state.service)
   const _700 = useMediaQuery('(min-width:700px)');
 
   return (
@@ -36,7 +38,7 @@ const ProfileBar = () => {
         </Stack>
         <Button
           size="medium"
-          sx={{ border: '1px solid gray', color: 'black', borderRadius: '10px', p: 2, height: 40 }}
+          sx={{ border: '1px solid gray', color: darkMode ? 'whitesmoke' : 'black', borderRadius: '10px', p: 2, height: 40 }}
         >
           Follow
         </Button>

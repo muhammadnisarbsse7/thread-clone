@@ -4,6 +4,7 @@ import Header from '../../src/components/common/Header';
 import AddPost from '../../src/components/modals/AddPost';
 import EditProfile from '../../src/components/modals/EditProfile';
 import MainMenu from '../../src/components/menu/MainMenu';
+import MyMenu from '../../src/components/menu/MyMenu';
 
 const ProtectedLayout = () => {
   const _700 = useMediaQuery('(min-width:700px)');
@@ -16,9 +17,10 @@ const ProtectedLayout = () => {
       overflow={'hidden'}
     >
       <Header />
-      {/* <AddPost /> */}
-      {/* <EditProfile /> */}
-      {/* <MainMenu /> */}
+      <AddPost />
+      <EditProfile />
+      <MainMenu />
+      <MyMenu />
       <Outlet />
     </Stack>
   );

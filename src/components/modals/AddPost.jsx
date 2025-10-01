@@ -2,8 +2,12 @@ import { Avatar, Box, Button, Dialog, DialogContent, DialogTitle, Stack, Typogra
 import React, { useRef, useState } from 'react'
 import { FaImages } from 'react-icons/fa6'
 import { RxCross2 } from 'react-icons/rx'
+import { useDispatch, useSelector } from 'react-redux'
+import { addPostModal } from '../../redux/slice'
 
 const AddPost = () => {
+    const { openAddPostModal } = useSelector((state) => state.service)
+
     const _700 = useMediaQuery('(min-width:700px)')
     const _500 = useMediaQuery('(min-width:500px)')
     const _300 = useMediaQuery('(min-width:300px)')
@@ -11,8 +15,9 @@ const AddPost = () => {
     const [text, setText] = useState()
     const [media, setMedia] = useState()
     const MediaRef = useRef()
+    const dispatch = useDispatch()
     const handleclose = () => {
-
+        dispatch(addPostModal(false))
     }
     const handleMediaRef = () => {
         MediaRef.current.click()
@@ -22,8 +27,8 @@ const AddPost = () => {
     }
     return (
         <>
-            <Dialog open={true} onClose={handleclose} fullWidth fullScreen={_700 ? false : true}>
-                <Box position={'absolute'} top={20} right={20} onclick={handleclose}><RxCross2 size={28} className='image-icon' /></Box>
+            <Dialog open={openAddPostModal} onClose={handleclose} fullWidth fullScreen={_700 ? false : true}>
+                <Box position={'absolute'} top={20} right={20} ><RxCross2 onClick={handleclose} size={28} className='image-icon' /></Box>
                 <DialogTitle textAlign={'center'} mb={5}>
                     New Thread ....
                 </DialogTitle>

@@ -1,8 +1,12 @@
 import { Link, Stack, Typography, useMediaQuery } from '@mui/material';
 import { IoMdSend } from 'react-icons/io';
 import { FaRegComment, FaRegHeart, FaRetweet } from 'react-icons/fa6';
+import { useSelector } from 'react-redux';
 
 const PostTwo = () => {
+
+  const { darkMode } = useSelector((state) => state.service)
+
   const _300 = useMediaQuery('(min-width:300px)');
   const _400 = useMediaQuery('(min-width:400px)');
   const _500 = useMediaQuery('(min-width:500px)');
@@ -17,7 +21,7 @@ const PostTwo = () => {
               Aditya Jawanjal
             </Typography>
             <Link to={'/post/2'} className='link'>
-              <Typography variant="h6" fontSize={_700 ? '1.2rem' : _400 ? '1rem' : _300 ? '0.9rem' : '0.8rem'}>
+              <Typography variant="h6" fontSize={_700 ? '1.2rem' : _400 ? '1rem' : _300 ? '0.9rem' : '0.8rem'} className={darkMode ? 'mode' : ''}>
                 Hi guyzz comment on this post and like it
               </Typography>
             </Link>
@@ -32,11 +36,11 @@ const PostTwo = () => {
             <IoMdSend size={_700 ? 32 : _300 ? 28 : 24} />
           </Stack>
           <Stack flexDirection={'row'} gap={1} position={'relative'} top={-3} left={4}>
-            <Typography varient="caption" color={'GrayText'} fontSize={_700 ? '1.1rem' : '1rem'}>
+            <Typography varient="caption" color={darkMode ? 'white' : 'GrayText'} fontSize={_700 ? '1.1rem' : '1rem'}>
               {' '}
               2 Likes .
             </Typography>
-            <Typography varient="caption" color={'GrayText'} fontSize={_700 ? '1.1rem' : '1rem'}>
+            <Typography varient="caption" color={darkMode ? 'white' : 'GrayText'} fontSize={_700 ? '1.1rem' : '1rem'}>
               {' '}
               1 Comment
             </Typography>

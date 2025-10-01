@@ -1,11 +1,17 @@
 import { Avatar, Menu, MenuItem, Stack, Typography, useMediaQuery } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { IoIosMore } from 'react-icons/io';
+import { useSelector } from 'react-redux';
 
 const Comments = () => {
+
+  const { darkMode } = useSelector((state) => state.service)
   const _700 = useMediaQuery('(min-width:700px)');
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const handleClose = () => {
+    setAnchorEl(null)
     // console.log('Menu closed')
   }
   const handleDeleteComment = () => {
@@ -38,14 +44,14 @@ const Comments = () => {
           flexDirection={'row'}
           gap={1}
           alignItems={'center'}
-          color={'GrayText'}
+          color={darkMode ? 'white' : 'GrayText'}
           fontSize={'0.9rem'}
         >
           <p>24min</p>
-          <IoIosMore size={_700 ? 28 : 20} />
+          <IoIosMore size={_700 ? 28 : 20} className='image-icon' onClick={(e) => setAnchorEl(e.currentTarget)} />
         </Stack>
       </Stack>
-      <Menu anchorEl={''} open={true} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
+      <Menu anchorEl={anchorEl} open={anchorEl !== null ? true : false} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <MenuItem onClick={handleDeleteComment}>Delete</MenuItem>
       </Menu>
     </>
