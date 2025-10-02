@@ -1,8 +1,13 @@
 import { Button, Stack, TextField, Typography, useMediaQuery } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLoginMutation, useSigninMutation } from '../../src/redux/service';
 
 const Register = () => {
   const _700 = useMediaQuery('(min-width:700px)');
+
+  const [signinUser, signinUserData] = useSigninMutation()
+  const [loginUser, loginUserData] = useLoginMutation()
+
   const [login, setLogin] = useState(false);
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
@@ -10,14 +15,25 @@ const Register = () => {
   const toggleLogin = () => {
     setLogin((prev) => !prev);
   };
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const data = { email, password };
     console.log('Login', data);
+    await loginUser(data)
   };
-  const handleRegister = () => {
+  const handleRegister = async () => {
     const data = { userName, email, password };
-    console.log('Register', data);
+    await signinUser(data)
+    // console.log('Register', data);
   };
+
+  useEffect(() => {
+    if (signinUserData.isSuccess) {
+      console.log(signinUserData.data)
+    }
+    if (loginUserData.isSuccess) {
+      console.log(loginUserData.data)
+    }
+  }, [signinUserData.isSuccess, loginUserData.isSuccess])
   return (
     <>
       <Stack
@@ -29,10 +45,10 @@ const Register = () => {
         sx={
           _700
             ? {
-                backgroundImage: 'url("/register-bg.webp")',
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: '100% 600px',
-              }
+              backgroundImage: 'url("/register-bg.webp")',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '100% 600px',
+            }
             : null
         }
       >
@@ -48,7 +64,7 @@ const Register = () => {
           {login ? null : (
             <TextField
               variant="outlined"
-              placeholder="Enter UserName"
+              placeholder="Enter userName"
               onChange={(e) => setUserName(e.target.value)}
             ></TextField>
           )}
